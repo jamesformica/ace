@@ -1,0 +1,9 @@
+{
+  "name": "A.C.E",
+  "version": "1.0.0",
+  "description": "Automatic Chocolate Engraver",
+  "main": "index.js",
+  "dependencies": {
+    "gulp-webserver": "0.9.1"
+  }
+}

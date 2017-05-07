@@ -1,0 +1,140 @@
+<html>
+
+<head>
+    <title>A.C.E</title>
+
+    <link href="css/layout.css" rel="stylesheet" />
+    <link href="css/slider.css" rel="stylesheet" />
+    <link href="css/controls.css" rel="stylesheet" />
+    <link href="libraries/simplepaint.css" rel="stylesheet" />
+
+    <script src="libraries/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="libraries/easeljs-0.8.2.min.js" type="text/javascript"></script>
+    <script src="libraries/simplepaint.js" type="text/javascript"></script>
+    <script src="libraries/gcode.js" type="text/javascript"></script>
+
+    <script src="js/slider.js" type="text/javascript"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Baloo" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <nav>
+        <h1></h1>
+    </nav>
+
+    <div class="output" id="output">
+        <span id="close-output" class="close">X</span>
+        <textarea class="output-content" id="output-content"></textarea>
+    </div>
+
+    <div class="content">
+        <div class="pane" id="production-line">
+            <div class="slider" id="production-slider">
+
+                <!-- SLIDE #1 -->
+                <section class="slide" data-onleave="validateSize">
+                    <h2>Print Size</h2>
+
+                    <div class="controls">
+                        <label>
+                             <span class="badge">1</span>
+                             <span>Width (mm)</span>
+                        </label>
+                        <input type="number" value="90" min="0" id="print-width" />
+                        <br/>
+                        <br/>
+                        <label>
+                             <span class="badge">2</span>
+                             <span>Height (mm)</span>
+                        </label>
+                        <input type="number" value="40" min="0" id="print-height" />
+                    </div>
+
+                    <button class="slide-next">Next</button>
+                </section>
+
+                <!-- SLIDE #2 -->
+                <section class="slide" data-onleave="leavingCanvas">
+                    <h2>Sketch</h2>
+                    <div id="sketch-canvas" class="sketch-canvas"></div>
+
+                    <label for="image-upload" class="upload-label">Upload an image!</label>
+                    <input type="file" id="image-upload">
+
+                    <button class="slide-prev">Prev</button>
+                    <button class="slide-next">Next</button>
+                </section>
+
+                <!-- SLIDE #3 -->
+                <section class="slide">
+                    <h2>Lettering</h2>
+
+                    <div class="controls">
+                        <label>
+                             <span class="badge">3</span>
+                             <span>Top Text</span>
+                        </label>
+                        <input type="text" placeholder="The text that will appear on top of the image" id="top-text" />
+                        <br/>
+                        <br/>
+                        <label>
+                             <span class="badge">4</span>
+                             <span>Bottom Text</span>
+                        </label>
+                        <input type="text" placeholder="The text that will appear under the image" id="bottom-text" />
+                    </div>
+
+                    <button class="slide-prev">Prev</button>
+                    <button class="slide-next">Next</button>
+                </section>
+
+                <!-- SLIDE #4 -->
+                <section class="slide" data-onleave="setOptions">
+                    <h2>Options</h2>
+
+                    <div class="controls">
+                        <label>
+                             <span class="badge">5</span>
+                             <span>Drill bit width (mm)</span>
+                        </label>
+                        <input type="number" id="bit-width" value="2" />
+                        <br/>
+                        <br/>
+                        <label>
+                             <span class="badge">6</span>
+                             <span>Cut Depth (mm per layer)</span>
+                        </label>
+                        <input type="number" id="cut-depth" value="2" />
+                        <br/>
+                        <br/>
+                        <label>
+                             <span class="badge">7</span>
+                             <span>Number of Layers</span>
+                        </label>
+                        <input type="number" id="number-cuts" value="3" />
+                    </div>
+
+                    <button class="slide-prev">Prev</button>
+                    <button class="slide-next">Finish!</button>
+                </section>
+            </div>
+        </div>
+        <div class="pane" id="preview">
+            <h2 class="invert">Preview</h2>
+
+            <canvas id="preview-canvas" class="preview-canvas" width="0" height="0"></canvas>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', function () {
+            initSlider();
+        }, false)
+    </script>
+
+</body>
+
+</html>
